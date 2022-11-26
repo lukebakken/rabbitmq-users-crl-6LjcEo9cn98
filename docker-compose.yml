@@ -1,0 +1,20 @@
+version: '3'
+
+
+networks:
+  rabbitnet:
+    name: rabbitnet
+    driver: bridge
+
+services:
+  producer:
+    build: producer
+    depends_on:
+      - rmq
+  consumer:
+    build: consumer
+    depends_on:
+      - rmq
+  rmq:
+    build: rmq
+    hostname: rabbitmq
