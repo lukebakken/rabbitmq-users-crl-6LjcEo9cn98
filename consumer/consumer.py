@@ -61,7 +61,6 @@ def main():
         keyfile="./client_rabbitmq_key.pem",
     )
 
-    # credentials = pika.PlainCredentials("guest", "guest")
     credentials = pika.credentials.ExternalCredentials()
     parameters = pika.ConnectionParameters(
         host="rabbitmq", credentials=credentials, ssl_options=pika.SSLOptions(context)
