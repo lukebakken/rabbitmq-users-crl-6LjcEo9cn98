@@ -3,7 +3,9 @@ import datetime
 import logging
 import pickle
 import pika
+import pika.credentials
 import random
+import ssl
 import time
 
 LOG_FORMAT = (
@@ -34,8 +36,20 @@ def main():
     maybe_delay()
 
     queue_name = "hello"
-    credentials = pika.PlainCredentials("guest", "guest")
-    parameters = pika.ConnectionParameters("rabbitmq", credentials=credentials)
+
+    context = ssl.create_default_context()
+    context.verify_mode = ssl.CERT_REQUIRED
+    context.load_verify_locations(cafile="./ca_certificate.pem")
+    context.load_cert_chain(
+        certfile="./client_rabbitmq_certificate.pem",
+        keyfile="./client_rabbitmq_key.pem",
+    )
+
+    # credentials = pika.PlainCredentials("guest", "guest")
+    credentials = pika.credentials.ExternalCredentials()
+    parameters = pika.ConnectionParameters(
+        host="rabbitmq", credentials=credentials, ssl_options=pika.SSLOptions(context)
+    )
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
 
@@ -56,7 +70,7 @@ def main():
                     exchange="", routing_key=queue_name, body=tp, properties=props
                 )
                 sendTime = datetime.datetime.fromtimestamp(t)
-                LOGGER.info("PRODUCER sent message %d at %s", messageCounter, sendTime);
+                LOGGER.info("PRODUCER sent message %d at %s", messageCounter, sendTime)
             connection.process_data_events(5)
     except KeyboardInterrupt:
         channel.close()

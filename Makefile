@@ -6,8 +6,10 @@ clean:
 rabbitmq/certs/server_rabbitmq_certificate.pem: server-certificate
 	cp -vf tls-gen/basic/result/ca_certificate.pem producer
 	cp -vf tls-gen/basic/result/client_rabbitmq_certificate.pem producer
+	cp -vf tls-gen/basic/result/client_rabbitmq_key.pem producer
 	cp -vf tls-gen/basic/result/ca_certificate.pem consumer
 	cp -vf tls-gen/basic/result/client_rabbitmq_certificate.pem consumer
+	cp -vf tls-gen/basic/result/client_rabbitmq_key.pem consumer
 	cp -vf tls-gen/basic/result/ca_certificate.pem rmq/certs
 	cp -vf tls-gen/basic/result/server_rabbitmq_certificate.pem rmq/certs
 	cp -vf tls-gen/basic/result/server_rabbitmq_key.pem rmq/certs
