@@ -6,4 +6,6 @@ RUN python -m pip install --upgrade pip pipenv
 COPY Pipfile* .
 RUN pipenv install
 COPY consumer.py .
-ENTRYPOINT ["pipenv", "run", "main"]
+COPY *.pem .
+CMD ["-m", "pipenv", "run", "main"]
+ENTRYPOINT ["python"]

@@ -1,11 +1,4 @@
 version: '3'
-
-
-networks:
-  rabbitnet:
-    name: rabbitnet
-    driver: bridge
-
 services:
   producer:
     build: producer
@@ -15,6 +8,13 @@ services:
     build: consumer
     depends_on:
       - rmq
+  crl:
+    build: crl
+    hostname: crl-server
+    # Note: handy for debugging
+    # ports:
+    #   # HOST:CONTAINER
+    #   - 8000:8000
   rmq:
     build: rmq
     hostname: rabbitmq
