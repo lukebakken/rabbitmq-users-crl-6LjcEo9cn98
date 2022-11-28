@@ -1,9 +1,7 @@
 ﻿FROM rabbitmq:3-management
 
 COPY --chown=rabbitmq:rabbitmq --chmod=0400 erlang.cookie /var/lib/rabbitmq/.erlang.cookie
-COPY --chown=rabbitmq:rabbitmq --chmod=0400 certs/ca_certificate.pem /etc/rabbitmq/
-COPY --chown=rabbitmq:rabbitmq --chmod=0400 certs/server_rabbitmq_certificate.pem /etc/rabbitmq/
-COPY --chown=rabbitmq:rabbitmq --chmod=0400 certs/server_rabbitmq_key.pem /etc/rabbitmq/
+COPY --chown=rabbitmq:rabbitmq --chmod=0400 certs/*.pem /etc/rabbitmq/
 COPY --chown=rabbitmq:rabbitmq definitions.json /etc/rabbitmq/
 COPY --chown=rabbitmq:rabbitmq enabled_plugins /etc/rabbitmq/
 COPY --chown=rabbitmq:rabbitmq rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
