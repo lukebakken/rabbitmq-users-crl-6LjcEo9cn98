@@ -18,6 +18,8 @@ tls-gen/basic/result/server_rmq0_certificate.pem:
 	cp -vf tls-gen/basic/result/ca_certificate.pem rmq0/certs
 	cp -vf tls-gen/basic/result/server_rmq0_certificate.pem rmq0/certs
 	cp -vf tls-gen/basic/result/server_rmq0_key.pem rmq0/certs
+	cp -vf tls-gen/basic/result/client_rmq0_certificate.pem rmq0/certs
+	cp -vf tls-gen/basic/result/client_rmq0_key.pem rmq0/certs
 
 tls-gen/basic/result/server_rmq1_certificate.pem:
 	cd tls-gen/basic && $(MAKE) CN=rmq1 gen-server gen-client
@@ -27,6 +29,8 @@ tls-gen/basic/result/server_rmq1_certificate.pem:
 	cp -vf tls-gen/basic/result/ca_certificate.pem rmq1/certs
 	cp -vf tls-gen/basic/result/server_rmq1_certificate.pem rmq1/certs
 	cp -vf tls-gen/basic/result/server_rmq1_key.pem rmq1/certs
+	cp -vf tls-gen/basic/result/client_rmq1_certificate.pem rmq1/certs
+	cp -vf tls-gen/basic/result/client_rmq1_key.pem rmq1/certs
 
 tls-gen/basic/result/basic.crl.pem:
 	cd tls-gen/basic && $(MAKE) gen-crl

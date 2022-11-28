@@ -66,7 +66,10 @@ def main():
                 t = time.time()
                 tp = pickle.dumps(t)
                 channel.basic_publish(
-                    exchange="", routing_key=queue_name, body=tp, properties=props
+                    exchange="federated-direct",
+                    routing_key=queue_name,
+                    body=tp,
+                    properties=props,
                 )
                 sendTime = datetime.datetime.fromtimestamp(t)
                 LOGGER.info("PRODUCER sent message %d at %s", messageCounter, sendTime)

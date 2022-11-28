@@ -18,6 +18,12 @@ services:
   rmq0:
     build: rmq0
     hostname: rmq0
+    ports:
+      # HOST:CONTAINER
+      - 15672:15672
   rmq1:
     build: rmq1
     hostname: rmq1
+    ports:
+      # HOST:CONTAINER
+      - 15673:15672
