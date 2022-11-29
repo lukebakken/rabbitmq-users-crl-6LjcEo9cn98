@@ -41,13 +41,13 @@ def main():
     context.verify_mode = ssl.CERT_REQUIRED
     context.load_verify_locations(cafile="./ca_certificate.pem")
     context.load_cert_chain(
-        certfile="./client_rabbitmq_certificate.pem",
-        keyfile="./client_rabbitmq_key.pem",
+        certfile="./client_rmq0_certificate.pem",
+        keyfile="./client_rmq0_key.pem",
     )
 
     credentials = pika.credentials.ExternalCredentials()
     parameters = pika.ConnectionParameters(
-        host="rabbitmq", credentials=credentials, ssl_options=pika.SSLOptions(context)
+        host="rmq0", credentials=credentials, ssl_options=pika.SSLOptions(context)
     )
     connection = pika.BlockingConnection(parameters)
     channel = connection.channel()
@@ -66,7 +66,10 @@ def main():
                 t = time.time()
                 tp = pickle.dumps(t)
                 channel.basic_publish(
-                    exchange="", routing_key=queue_name, body=tp, properties=props
+                    exchange="federated-direct",
+                    routing_key=queue_name,
+                    body=tp,
+                    properties=props,
                 )
                 sendTime = datetime.datetime.fromtimestamp(t)
                 LOGGER.info("PRODUCER sent message %d at %s", messageCounter, sendTime)

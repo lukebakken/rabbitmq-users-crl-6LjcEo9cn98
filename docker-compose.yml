@@ -3,11 +3,11 @@ services:
   producer:
     build: producer
     depends_on:
-      - rmq
+      - rmq0
   consumer:
     build: consumer
     depends_on:
-      - rmq
+      - rmq1
   crl:
     build: crl
     hostname: crl-server
@@ -15,6 +15,15 @@ services:
     # ports:
     #   # HOST:CONTAINER
     #   - 8000:8000
-  rmq:
-    build: rmq
-    hostname: rabbitmq
+  rmq0:
+    build: rmq0
+    hostname: rmq0
+    ports:
+      # HOST:CONTAINER
+      - 15672:15672
+  rmq1:
+    build: rmq1
+    hostname: rmq1
+    ports:
+      # HOST:CONTAINER
+      - 15673:15672

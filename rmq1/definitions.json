@@ -1,0 +1,121 @@
+{
+  "rabbit_version": "3.11.0",
+  "rabbitmq_version": "3.11.0",
+  "product_name": "RabbitMQ",
+  "product_version": "3.11.0",
+  "users": [
+    {
+      "name": "O=client,CN=rmq0",
+      "password_hash": "+5F705AK1GblaVx5IBJ+ER+wB0eFp6nnCUFfw2LvHMEihH4v",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    },
+    {
+      "name": "O=client,CN=rmq1",
+      "password_hash": "+5F705AK1GblaVx5IBJ+ER+wB0eFp6nnCUFfw2LvHMEihH4v",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    },
+    {
+      "name": "guest",
+      "password_hash": "9Zuc5+6Adx9fQyb9PX+jgAXRqdIJpPWyJ8W5U6hl1ItguPxk",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "O=client,CN=rmq1",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "O=client,CN=rmq0",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "topic_permissions": [],
+  "parameters": [
+    {
+      "value": {
+        "ack-mode": "on-confirm",
+        "prefetch-count": 8,
+        "reconnect-delay": 5,
+        "trust-user-id": false,
+        "uri": "amqps://rmq0?cacertfile=/etc/rabbitmq/ca_certificate.pem&certfile=/etc/rabbitmq/client_rmq1_certificate.pem&keyfile=/etc/rabbitmq/client_rmq1_key.pem&verify=verify_peer&fail_if_no_peer_cert=true&auth_mechanism=external"
+      },
+      "vhost": "/",
+      "component": "federation-upstream",
+      "name": "rmq0-federation"
+    }
+  ],
+  "global_parameters": [],
+  "policies": [
+    {
+      "vhost": "/",
+      "name": "rmq0-federation",
+      "pattern": "^federated",
+      "apply-to": "exchanges",
+      "definition": {
+        "federation-upstream": "rmq0-federation"
+      },
+      "priority": 0
+    }
+  ],
+  "queues": [
+    {
+      "name": "hello",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "federated-direct",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "federated-direct",
+      "vhost": "/",
+      "destination": "hello",
+      "destination_type": "queue",
+      "routing_key": "hello",
+      "arguments": {}
+    }
+  ]
+}
