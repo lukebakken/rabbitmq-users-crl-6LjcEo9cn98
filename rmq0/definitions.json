@@ -46,14 +46,14 @@
       "read": ".*"
     },
     {
-      "user": "O=client,CN=rmq1",
+      "user": "O=client,CN=rmq0",
       "vhost": "/",
       "configure": ".*",
       "write": ".*",
       "read": ".*"
     },
     {
-      "user": "O=client,CN=rmq0",
+      "user": "O=client,CN=rmq1",
       "vhost": "/",
       "configure": ".*",
       "write": ".*",

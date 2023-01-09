@@ -68,7 +68,7 @@
         "prefetch-count": 8,
         "reconnect-delay": 5,
         "trust-user-id": false,
-        "uri": "amqps://rmq0?cacertfile=/etc/rabbitmq/ca_certificate.pem&certfile=/etc/rabbitmq/client_rmq1_certificate.pem&keyfile=/etc/rabbitmq/client_rmq1_key.pem&verify=verify_peer&fail_if_no_peer_cert=true&auth_mechanism=external"
+        "uri": "amqps://rmq0?auth_mechanism=external"
       },
       "vhost": "/",
       "component": "federation-upstream",
